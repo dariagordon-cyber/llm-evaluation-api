@@ -44,6 +44,23 @@ def use_test_database(tmp_path):
     app.dependency_overrides[get_db] = override_get_db
 
 
+def create_evaluations(count: int) -> list[dict]:
+    created = []
+    for index in range(count):
+        response = client.post(
+            "/evaluate",
+            json={
+                "task": f"Explain concept {index}.",
+                "model_answer": "This answer has enough words to create a mock evaluation.",
+                "criteria": "accuracy",
+            },
+        )
+        assert response.status_code == 201
+        created.append(response.json())
+
+    return created
+
+
 def test_health_check() -> None:
     response = client.get("/health")
 
@@ -213,6 +230,60 @@ def test_unknown_evaluation_id_returns_404(tmp_path) -> None:
 
     assert response.status_code == 404
     assert response.json() == {"detail": "Evaluation not found"}
+
+
+def test_list_evaluations_default_pagination(monkeypatch, tmp_path) -> None:
+    use_test_database(tmp_path)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    evaluator.get_settings.cache_clear()
+    create_evaluations(25)
+
+    response = client.get("/evaluations")
+
+    assert response.status_code == 200
+    assert len(response.json()["evaluations"]) == 20
+
+
+def test_list_evaluations_custom_limit(monkeypatch, tmp_path) -> None:
+    use_test_database(tmp_path)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    evaluator.get_settings.cache_clear()
+    create_evaluations(5)
+
+    response = client.get("/evaluations?limit=2")
+
+    assert response.status_code == 200
+    assert len(response.json()["evaluations"]) == 2
+
+
+def test_list_evaluations_custom_offset(monkeypatch, tmp_path) -> None:
+    use_test_database(tmp_path)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    evaluator.get_settings.cache_clear()
+    created = create_evaluations(3)
+
+    response = client.get("/evaluations?limit=1&offset=1")
+    data = response.json()
+
+    assert response.status_code == 200
+    assert len(data["evaluations"]) == 1
+    assert data["evaluations"][0]["evaluation_id"] == created[1]["evaluation_id"]
+
+
+def test_list_evaluations_invalid_limit_returns_422(tmp_path) -> None:
+    use_test_database(tmp_path)
+
+    response = client.get("/evaluations?limit=0")
+
+    assert response.status_code == 422
+
+
+def test_list_evaluations_invalid_offset_returns_422(tmp_path) -> None:
+    use_test_database(tmp_path)
+
+    response = client.get("/evaluations?offset=-1")
+
+    assert response.status_code == 422
 
 
 def test_evaluator_failure_returns_500(monkeypatch, tmp_path) -> None:

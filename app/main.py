@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from collections import Counter
 from uuid import uuid4
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.database import create_tables, get_db
@@ -94,8 +94,18 @@ def create_batch_evaluation(
 
 
 @app.get("/evaluations", response_model=EvaluationListResponse)
-def list_evaluations(db: Session = Depends(get_db)) -> EvaluationListResponse:
-    records = db.query(EvaluationRecord).order_by(EvaluationRecord.created_at.desc()).all()
+def list_evaluations(
+    limit: int = Query(default=20, ge=1, le=100),
+    offset: int = Query(default=0, ge=0),
+    db: Session = Depends(get_db),
+) -> EvaluationListResponse:
+    records = (
+        db.query(EvaluationRecord)
+        .order_by(EvaluationRecord.created_at.desc())
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )
     return EvaluationListResponse(
         evaluations=[record_to_evaluation(record) for record in records]
     )

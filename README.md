@@ -65,7 +65,7 @@ README.md
 | `GET` | `/health` | Health check endpoint |
 | `POST` | `/evaluate` | Evaluate one model answer |
 | `POST` | `/batch-evaluate` | Evaluate multiple model answers with shared criteria |
-| `GET` | `/evaluations` | List saved evaluations from SQLite |
+| `GET` | `/evaluations?limit=20&offset=0` | List saved evaluations from SQLite with pagination |
 | `GET` | `/evaluations/{evaluation_id}` | Retrieve one saved evaluation |
 
 ## Request/Response Examples
@@ -195,6 +195,17 @@ The tests use isolated temporary SQLite databases and do not call the real OpenA
 Evaluation results are saved to a local SQLite database named `evaluations.db`.
 
 The database is created automatically when the app starts. It is runtime data and is ignored by git.
+
+`GET /evaluations` supports pagination so clients do not need to load too many records at once:
+
+```text
+GET /evaluations?limit=20&offset=0
+```
+
+Query parameters:
+
+- `limit`: number of evaluations to return, default `20`, minimum `1`, maximum `100`
+- `offset`: number of evaluations to skip, default `0`, minimum `0`
 
 ## Batch Evaluation
 
