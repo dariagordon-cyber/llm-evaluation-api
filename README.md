@@ -8,7 +8,7 @@ The API supports single-answer evaluation, batch evaluation, SQLite logging, opt
 
 ## Motivation
 
-LLM applications need more than simple pass/fail checks. This project demonstrates how to evaluate model answers using explicit criteria, evaluation modes, controlled error labels, structured scores, and persistent logs. It is designed as a portfolio-friendly backend project that shows practical API design, validation, persistence, testing, Docker configuration, and CI.
+LLM applications need more than simple pass/fail checks. This project demonstrates how to evaluate model answers using explicit criteria, evaluation modes, controlled error labels, structured scores, and persistent logs. It is designed as a backend API project that shows practical API design, validation, persistence, testing, Docker configuration, and CI.
 
 ## Features
 
