@@ -35,6 +35,7 @@ def openai_evaluate(payload: EvaluationRequest) -> EvaluationResult:
     settings = get_settings()
     evaluation_id = str(uuid4())
     criteria = normalize_criteria(payload.criteria)
+    criteria_text = criteria_to_text(criteria)
 
     try:
         from openai import OpenAI
