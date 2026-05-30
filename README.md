@@ -357,6 +357,6 @@ The CI workflow does not require `OPENAI_API_KEY`.
 - Add request tracing and structured logging.
 - Add production deployment configuration.
 
-## Portfolio/CV Description
+## Portfolio Summary
 
-Built a FastAPI service for structured, rubric-based evaluation of LLM-generated answers, with optional OpenAI integration, mock fallback, SQLite logging, batch evaluation, Docker configuration, GitHub Actions CI, and pytest coverage.
+Built a FastAPI-based backend API for structured, rubric-based evaluation of LLM-generated answers, supporting configurable criteria, evaluation modes, controlled error taxonomy, single and batch evaluation, SQLite logging, pagination, optional OpenAI-based evaluation with mock fallback, pytest coverage, Docker configuration, and GitHub Actions CI.
