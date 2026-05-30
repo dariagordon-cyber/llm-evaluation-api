@@ -1,0 +1,17 @@
+# Environment variables
+.env
+
+# Virtual environments
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# SQLite runtime database
+evaluations.db
+*.db
+
+# macOS
+.DS_Store

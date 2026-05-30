@@ -1,0 +1,94 @@
+[
+  {
+    "task": "Explain overfitting.",
+    "model_answer": "Overfitting happens when a model learns the training data too closely, including noise, so it performs poorly on new data.",
+    "reference_answer": "Overfitting means a model fits the training data too closely and does not generalize well to unseen data.",
+    "evaluation_mode": "general_answer",
+    "criteria": [
+      {
+        "name": "correctness",
+        "description": "Does the answer explain the concept accurately?",
+        "weight": 0.5
+      },
+      {
+        "name": "clarity",
+        "description": "Is the answer easy to understand?",
+        "weight": 0.3
+      },
+      {
+        "name": "completeness",
+        "description": "Does the answer mention generalization to unseen data?",
+        "weight": 0.2
+      }
+    ]
+  },
+  {
+    "task": "Explain gradient descent in exactly two sentences for a beginner.",
+    "model_answer": "Gradient descent is a way for a model to improve by checking which direction makes its mistakes smaller. It repeats small updates until the model gets closer to a good answer.",
+    "reference_answer": "Gradient descent is an optimization method that updates model parameters in the direction that reduces error.",
+    "evaluation_mode": "constraint_following",
+    "criteria": [
+      {
+        "name": "constraint_adherence",
+        "description": "Does the answer use exactly two sentences?",
+        "weight": 0.5
+      },
+      {
+        "name": "beginner_clarity",
+        "description": "Is the explanation understandable for a beginner?",
+        "weight": 0.3
+      },
+      {
+        "name": "accuracy",
+        "description": "Does the answer preserve the core idea of gradient descent?",
+        "weight": 0.2
+      }
+    ]
+  },
+  {
+    "task": "Explain the bank problem.",
+    "model_answer": "The bank problem might refer to a financial bank, a river bank, or a specific puzzle or example. Could you clarify which meaning you intend?",
+    "reference_answer": "A good answer should acknowledge the ambiguity and ask what kind of bank or problem is meant.",
+    "evaluation_mode": "ambiguity_handling",
+    "criteria": [
+      {
+        "name": "ambiguity_awareness",
+        "description": "Does the answer recognize multiple possible meanings?",
+        "weight": 0.5
+      },
+      {
+        "name": "clarification_behavior",
+        "description": "Does the answer ask a useful clarification question?",
+        "weight": 0.3
+      },
+      {
+        "name": "helpfulness",
+        "description": "Does the answer help the user move forward?",
+        "weight": 0.2
+      }
+    ]
+  },
+  {
+    "task": "Explain FastAPI to a beginner.",
+    "model_answer": "FastAPI is a Python framework for building web APIs. It helps developers define routes, validate data, and generate interactive documentation automatically.",
+    "reference_answer": "FastAPI is a modern Python web framework for building APIs with type hints, validation, and automatic docs.",
+    "evaluation_mode": "educational_answer",
+    "criteria": [
+      {
+        "name": "accuracy",
+        "description": "Does the answer correctly describe FastAPI?",
+        "weight": 0.5
+      },
+      {
+        "name": "beginner_clarity",
+        "description": "Is the explanation accessible to someone new?",
+        "weight": 0.3
+      },
+      {
+        "name": "completeness",
+        "description": "Does the answer mention useful features such as validation or docs?",
+        "weight": 0.2
+      }
+    ]
+  }
+]

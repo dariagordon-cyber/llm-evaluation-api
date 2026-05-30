@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "task": "Explain overfitting.",
+      "model_answer": "Overfitting happens when a model memorizes training data and performs worse on new examples.",
+      "reference_answer": "Overfitting means a model fits training data too closely and does not generalize well."
+    },
+    {
+      "task": "Explain underfitting.",
+      "model_answer": "Underfitting is when a model is too simple to capture important patterns in the data.",
+      "reference_answer": "Underfitting means a model is too simple and performs poorly on both training and test data."
+    },
+    {
+      "task": "Explain precision in classification.",
+      "model_answer": "Precision measures how many predicted positive cases were actually positive.",
+      "reference_answer": "Precision is true positives divided by all predicted positives."
+    }
+  ],
+  "criteria": [
+    {
+      "name": "correctness",
+      "description": "Does the answer explain the concept accurately?",
+      "weight": 0.5
+    },
+    {
+      "name": "clarity",
+      "description": "Is the answer easy to understand?",
+      "weight": 0.3
+    },
+    {
+      "name": "completeness",
+      "description": "Does the answer cover the essential points?",
+      "weight": 0.2
+    }
+  ],
+  "evaluation_mode": "general_answer"
+}
