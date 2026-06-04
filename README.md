@@ -326,6 +326,34 @@ docker run --rm -p 8000:8000 \
 
 Local Docker build and execution were not tested during development because Docker Desktop was not installed on the development machine.
 
+## Azure App Service Deployment
+
+The FastAPI application is exposed as `app.main:app` and can be run on Azure App Service with Gunicorn and Uvicorn workers.
+
+Required App Service environment variables:
+
+- `OPENAI_API_KEY`: enables OpenAI-based evaluation. If omitted, the API uses the deterministic mock evaluator.
+- `OPENAI_MODEL`: optional model override. Defaults to `gpt-4o-mini`.
+- `DATABASE_URL`: optional database URL. Defaults to `sqlite:///./evaluations.db`; use a managed database URL for production deployments that need durable persistence.
+
+Startup command:
+
+```bash
+gunicorn -w 2 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 app.main:app
+```
+
+Health check endpoint:
+
+```text
+/health
+```
+
+Example deployed URL format:
+
+```text
+https://<app-service-name>.azurewebsites.net/health
+```
+
 ## GitHub Actions CI
 
 The project includes a workflow at `.github/workflows/ci.yml`.
