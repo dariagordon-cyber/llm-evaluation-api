@@ -388,3 +388,31 @@ The CI workflow does not require `OPENAI_API_KEY`.
 ## Portfolio Summary
 
 Built a FastAPI-based backend API for structured, rubric-based evaluation of LLM-generated answers, supporting configurable criteria, evaluation modes, controlled error taxonomy, single and batch evaluation, SQLite logging, pagination, optional OpenAI-based evaluation with mock fallback, pytest coverage, Docker configuration, and GitHub Actions CI.
+
+### Live Azure deployment
+
+The backend has been deployed to Azure App Service.
+
+Public health check endpoint:
+
+```bash
+GET https://llm-eval-api-daria-2026.azurewebsites.net/health
+```
+
+Expected response:
+
+```json
+{"status":"ok"}
+```
+
+Deployment details:
+
+- Resource group: `rg-llm-evaluation-api`
+- App Service Plan: `plan-llm-evaluation-api`
+- Azure region: `italynorth`
+- Web App: `llm-eval-api-daria-2026`
+- Startup command:
+
+```bash
+gunicorn -w 2 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 app.main:app
+```
