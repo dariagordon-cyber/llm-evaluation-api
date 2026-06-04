@@ -15,3 +15,7 @@ evaluations.db
 
 # macOS
 .DS_Store
+
+# Azure deployment artifacts
+app.zip
+publish_profile.xml
